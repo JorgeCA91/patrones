@@ -175,23 +175,23 @@ public String conteo (){
     }
     System.out.println();
     
-    String s="";
+    String s = "";
     String p1N="jugador 1";
     String p2N="jugador 2";
 if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
             String[] p = new String[]{palabras[0], palabras[1], palabras[2], palabras[3]}; 
             s = p[contador];
-            return (contador == contador2) ? s + "-"+palabras[4] : s + "-" + p[contador2];
+            return (contador == contador2) ? s + " - "+palabras[4] : s + " - " + p[contador2];
         } else {
             if (contador == contador2)
                 return ""+palabras[4];
             s = contador > contador2 ? p1N : p2N;
             //Lo nuevo
             if ((contador-contador2)*(contador-contador2) == 1) {
-                return ""+palabras[5] + s;
+                return palabras[5]+ " " + s;
             } else {
                 ganador = true;
-                return ""+palabras[6] + s;
+                return palabras[6] + " " + s;
             }
         }
             //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
@@ -231,6 +231,7 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
         contador = 0;
         contador2 = 0;
         ganador=false;
+        jLabel6.setText("Love - All");
     }
     
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
