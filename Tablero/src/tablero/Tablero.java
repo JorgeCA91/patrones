@@ -17,7 +17,7 @@ public class Tablero {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        new Table().setVisible(true);
+        new Table();
     }
     
 }

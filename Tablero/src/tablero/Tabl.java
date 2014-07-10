@@ -5,14 +5,14 @@
  */
 
 package tablero;
-
+import idiomas.Idiomas;
 /**
  *
  * @author aokiji43
  */
 public class Tabl extends javax.swing.JFrame {
 
-    
+    private boolean ganador = false;
     public Tabl() {
         initComponents();
     }
@@ -22,12 +22,16 @@ public class Tabl extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,31 +55,59 @@ public class Tabl extends javax.swing.JFrame {
             }
         });
 
-        jLabel6.setText("love all");
+        jLabel6.setText("cero-iguales");
+
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setText("ingles");
+        jRadioButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonGroup1.add(jRadioButton2);
+        jRadioButton2.setSelected(true);
+        jRadioButton2.setText("español");
+
+        buttonGroup1.add(jRadioButton3);
+        jRadioButton3.setText("Frances");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addComponent(jButton1)
-                .addGap(82, 82, 82)
-                .addComponent(jButton2)
-                .addContainerGap(96, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addComponent(jButton1)
+                        .addGap(82, 82, 82)
+                        .addComponent(jButton2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(132, 132, 132)
+                        .addComponent(jLabel6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(39, 39, 39)
-                        .addComponent(jLabel2)
-                        .addGap(147, 147, 147))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 90, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(33, 33, 33))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(39, 39, 39)
+                                .addComponent(jLabel2)
+                                .addGap(147, 147, 147))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(99, 99, 99))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jRadioButton2)
+                        .addGap(78, 78, 78)
+                        .addComponent(jRadioButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jRadioButton3)
+                        .addGap(35, 35, 35))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -86,13 +118,18 @@ public class Tabl extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
-                .addGap(3, 3, 3)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addGap(89, 89, 89))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jRadioButton2)
+                    .addComponent(jRadioButton1)
+                    .addComponent(jRadioButton3))
+                .addGap(48, 48, 48))
         );
 
         pack();
@@ -106,22 +143,33 @@ public class Tabl extends javax.swing.JFrame {
     }*/
 ////////////////////////////////////////////////
 public String conteo (){
+    //buttonGroup1.getSelection();
+    Idiomas idiomas = new Idiomas();
+    String[] palabras = idiomas.estructuraIdioma("español.txt");
+    System.out.println(palabras[0]);
     
     String s="";
     String p1N="jugador 1";
     String p2N="jugador 2";
 if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
-            String[] p = new String[]{"Love", "Fifteen", "Thirty", "Forty"}; 
+            String[] p = new String[]{"cero", "quince", "treinta", "cuarenta"}; 
             s = p[contador];
-            return (contador == contador2) ? s + "-All" : s + "-" + p[contador2];
+            return (contador == contador2) ? s + "-iguales" : s + "-" + p[contador2];
         } else {
             if (contador == contador2)
-                return "Deuce";
+                return "empate";
             s = contador > contador2 ? p1N : p2N;
-            return ((contador-contador2)*(contador-contador2) == 1) ? "Advantage " + s : "Win for " + s;
-            
+            //Lo nuevo
+            if ((contador-contador2)*(contador-contador2) == 1) {
+                return "avanza " + s;
+            } else {
+                ganador = true;
+                return "gana  " + s;
+            }
         }
-}
+            //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
+        }
+
 //////////////////////////////////////////////////////////77
  /*   public int dos (int contador2){
         return contador2;
@@ -131,7 +179,12 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     contador+=1;
    // uno(contador);
-    jLabel6.setText(conteo());         // TODO add your handling code here:
+    jLabel6.setText(conteo());
+    if(ganador) {
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+        }
+// TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -139,7 +192,15 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
     //   dos(contador2);
        jLabel6.setText(conteo());  
         // TODO add your handling code here:
+       if(ganador) {
+            jButton1.setEnabled(false);
+            jButton2.setEnabled(false);
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,12 +238,16 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JRadioButton jRadioButton1;
+    private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     // End of variables declaration//GEN-END:variables
 
     private String Tab() {
