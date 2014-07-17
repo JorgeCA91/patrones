@@ -30,6 +30,7 @@ public class Tabla {
         table.setSize(300, 200);
         table.setLocation(10, 10);
         table.setVisible(true);
+        
     }
     
     public JTable getTabla() {
@@ -46,7 +47,24 @@ public class Tabla {
         return this.table;
     }
     
+    public JTable limpiezaNormal(int index) {
+        for(int i = index; i < this.table.getRowCount(); i++) {
+            this.model.removeRow(i);
+        }
+        return this.table;
+    }
+    public JTable limpiezaInversa(int index) {
+        for(int i = index; i > -1 ; i--) {
+            this.model.removeRow(i);
+        }
+        return this.table;
+    }
+    
     public JTable generaTabla(int ptn1, int ptn2, String score, boolean sentido) {
         return sentido? agregaFilaNormal(ptn1, ptn2, score): agregaFilaInversa(ptn1, ptn2, score);
+    }
+    
+    public JTable limpiaTabla(int index, boolean sentido) {
+        return sentido? limpiezaNormal(index): limpiezaInversa(index);
     }
 }

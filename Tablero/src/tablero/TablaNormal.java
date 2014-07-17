@@ -14,19 +14,40 @@ public class TablaNormal extends javax.swing.JFrame {
     
     private static boolean SENTIDO = true;
     Tabla tablaNormal = new Tabla();
-    
+    Tabl framePrincipal;
     /**
      * Creates new form TablaNormal
      */
     public TablaNormal(Tabl framePrincipal) {
-        initComponents();
+        this.framePrincipal = framePrincipal; 
+       initComponents();
         setTitle("Tabla Normal");
         setLocation(800, 50);
+        tablaNormal.getTabla().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         this.add(tablaNormal.getTabla());
+    }
+    
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+        limpiar();
+        framePrincipal.limpiarTableroInvertido();
+        framePrincipal.setContador1((int) tablaNormal.getTabla().getValueAt(0, tablaNormal.getTabla().getSelectedRow()));
+        framePrincipal.setContador2((int) tablaNormal.getTabla().getValueAt(1, tablaNormal.getTabla().getSelectedRow()));
+    }
+    
+    public void limpiar() {
+        tablaNormal.limpiaTabla(tablaNormal.getTabla().getSelectedRow(),SENTIDO);
     }
     
     public void agregaFila(int ptn1, int ptn2, String score) {
         tablaNormal.generaTabla(ptn1, ptn2, score, this.SENTIDO);
+    }
+    public void limpiarTabla(int index) {
+        tablaNormal.limpiaTabla(index, SENTIDO);
     }
     /**
      * This method is called from within the constructor to initialize the form.

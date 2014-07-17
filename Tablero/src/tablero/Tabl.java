@@ -152,7 +152,7 @@ public class Tabl extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jRadioButton3)))
-                .addContainerGap(379, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,17 +229,27 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
             //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
     }
     
-    public void limpiarTablero() {
-        //int totalFilas = jTable1.getRowCount();
-        //int indexClick = jTable1.getSelectedRow();
-        //for(int i = indexClick; i < totalFilas; i++ ){
-            
-        //}
-        System.out.println("Fila seleccionada: ");
-        //System.out.println(jTable1.getSelectedRow());
-        //jTable1.getModel().setValueAt("Uno",1, 1);
-        //System.out.println(jTable1.getModel().getValueAt(1, 1));
+    public int getContador1() {
+        return this.contador;
     }
+    public int getContador2() {
+        return this.contador2;
+    }
+    
+    public void setContador1(int contador1) {
+        this.contador = contador1;
+    }
+    public void setContador2(int contador2) {
+        this.contador2 = contador2;
+    }
+
+    public void limpiarTableroInvertido() {
+        tablaInvertida.limpiar();
+    }
+    public void limpiarTableroNormal() {
+        tablaNormal.limpiar();
+    }
+    
 //////////////////////////////////////////////////////////77
  /*   public int dos (int contador2){
         return contador2;

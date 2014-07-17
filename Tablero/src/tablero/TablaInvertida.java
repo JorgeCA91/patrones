@@ -12,19 +12,38 @@ package tablero;
  */
 public class TablaInvertida extends javax.swing.JFrame {
     private static boolean SENTIDO = false;
-    Tabla tablaNormal = new Tabla();
-    
+    Tabla tablaInvertida = new Tabla();
+    Tabl framePrincipal;
     /**
      * Creates new form TablaInvertida
      */
     public TablaInvertida(Tabl framePrincipal) {
+        this.framePrincipal = framePrincipal;
         initComponents();
         setTitle("Tabla Invertida");
         setLocation(800, 500);
-        this.add(tablaNormal.getTabla());
+        tablaInvertida.getTabla().addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        this.add(tablaInvertida.getTabla());
     }
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {                                     
+        limpiar();
+        framePrincipal.limpiarTableroNormal();
+        System.err.println("J1: ");
+        framePrincipal.setContador1((int) tablaInvertida.getTabla().getValueAt(0, tablaInvertida.getTabla().getSelectedRow()));
+        framePrincipal.setContador2((int) tablaInvertida.getTabla().getValueAt(1, tablaInvertida.getTabla().getSelectedRow()));
+    }
+    
+    public void limpiar() {
+        tablaInvertida.limpiaTabla(tablaInvertida.getTabla().getSelectedRow(),SENTIDO);
+    }
+        
     public void agregaFila(int ptn1, int ptn2, String score) {
-        tablaNormal.generaTabla(ptn1, ptn2, score, this.SENTIDO);
+        tablaInvertida.generaTabla(ptn1, ptn2, score, this.SENTIDO);
     }
     /**
      * This method is called from within the constructor to initialize the form.
