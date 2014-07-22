@@ -192,8 +192,8 @@ public class Tabl extends javax.swing.JFrame {
     }*/
 ////////////////////////////////////////////////
 public String conteo (){
-    
-    if(jRadioButton1.isSelected()) {
+    palabras = idiomas.estructuraIdioma(tablaNormal.getIdioma()+".txt");
+    /*if(jRadioButton1.isSelected()) {
         String i = jRadioButton1.getText();
         palabras = idiomas.estructuraIdioma(i+".txt");   
     }
@@ -204,7 +204,7 @@ public String conteo (){
     if(jRadioButton3.isSelected()) {
         String i = jRadioButton3.getText();
         palabras = idiomas.estructuraIdioma(i+".txt");   
-    }
+    }*/
     System.out.println();
     
     String s = "";
@@ -228,7 +228,46 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
         }
             //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
     }
+
+    public String conteo2 (){
+        palabras = idiomas.estructuraIdioma(tablaInvertida.getIdioma()+".txt");
+        
+    /*if(jRadioButton1.isSelected()) {
+        String i = jRadioButton1.getText();
+        palabras = idiomas.estructuraIdioma(i+".txt");   
+    }
+    if(jRadioButton2.isSelected()) {
+        String i = jRadioButton2.getText();
+        palabras = idiomas.estructuraIdioma(i+".txt");   
+    }
+    if(jRadioButton3.isSelected()) {
+        String i = jRadioButton3.getText();
+        palabras = idiomas.estructuraIdioma(i+".txt");   
+    }*/
+    System.out.println();
     
+    String s = "";
+    String p1N="jugador 1";
+    String p2N="jugador 2";
+if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
+            String[] p = new String[]{palabras[0], palabras[1], palabras[2], palabras[3]}; 
+            s = p[contador];
+            return (contador == contador2) ? s + " - "+palabras[4] : s + " - " + p[contador2];
+        } else {
+            if (contador == contador2)
+                return ""+palabras[4];
+            s = contador > contador2 ? p1N : p2N;
+            //Lo nuevo
+            if ((contador-contador2)*(contador-contador2) == 1) {
+                return palabras[5]+ " " + s;
+            } else {
+                ganador = true;
+                return palabras[6] + " " + s;
+            }
+        }
+            //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
+    }
+
     public int getContador1() {
         return this.contador;
     }
@@ -262,7 +301,7 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
     // Append a row 
     model.addRow(new Object[]{contador, contador2, conteo()});
     tablaNormal.agregaFila(contador, contador2, conteo());
-    tablaInvertida.agregaFila(contador, contador2, conteo());
+    tablaInvertida.agregaFila(contador, contador2, conteo2());
     jLabel6.setText(conteo());
         if(ganador) {
             jButton1.setEnabled(false);
@@ -277,7 +316,7 @@ if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
         contador2+=1;
         model.addRow(new Object[]{contador, contador2, conteo()});
         tablaNormal.agregaFila(contador, contador2, conteo());
-        tablaInvertida.agregaFila(contador, contador2, conteo());
+        tablaInvertida.agregaFila(contador, contador2, conteo2());
         jLabel6.setText(conteo());  
         // TODO add your handling code here:
         if(ganador) {
