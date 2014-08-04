@@ -14,7 +14,6 @@ public class Player {
     
     public String nombre;
     public int point;
-    public boolean empato;
     
     public String getNombre() {
         return nombre;
@@ -30,10 +29,6 @@ public class Player {
 
     public void setPoint(int point) {
         this.point = point;
-    }
-    
-    public void sumaPunto() {
-        this.point = this.point + 1;
     }
     
 }

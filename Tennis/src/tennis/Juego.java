@@ -15,11 +15,11 @@ public class Juego {
     public String score;
     
     public void point(Player jugador) {
-        jugador.sumaPunto();
+        
     }
     
     public String score(Player uno, Player dos) {
-    
+        
         return score;
     } 
 }
