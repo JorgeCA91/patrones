@@ -1,15 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package cancha;
 
 /**
  *
  * @author jorge
  */
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -18,7 +13,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.*;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
-import java.util.Random;
+import javax.swing.JOptionPane;
 
 class Controlador extends JPanel implements Runnable, KeyListener {
     private double coordenadaXBolita;
@@ -48,17 +43,23 @@ class Controlador extends JPanel implements Runnable, KeyListener {
         this.coordenadaYJugador2 = 180;
     }
 
-@Override
-public void paint(Graphics cancha) {
+    @Override
+    public void paint(Graphics cancha) {
         super.paint(cancha);
         Graphics2D graficoDeLaCancha = (Graphics2D)cancha;
-        graficoDeLaCancha.setColor(Color.BLACK);
-        graficoDeLaCancha.fill(new Ellipse2D.Double(this.coordenadaXBolita, this.coordenadaYBolita, 20, 20));
-        graficoDeLaCancha.setColor(Color.BLUE);
-        graficoDeLaCancha.fill(new Rectangle2D.Double(this.coordenadaXJugador1, this.coordenadaYJugador1, 15, 60));
+        Ellipse2D bolita = new Ellipse2D.Double(this.coordenadaXBolita, this.coordenadaYBolita, 20, 20);
+        Rectangle2D raquetaJugador1 = new Rectangle2D.Double(this.coordenadaXJugador1, this.coordenadaYJugador1, 15, 60);
+        Rectangle2D raquetaJugador2 = new Rectangle2D.Double(this.coordenadaXJudador2, this.coordenadaYJugador2, 15, 60);
+        Color colorBolita = Color.BLACK;
+        Color colorRaquetaJugador1 = Color.BLUE;
+        Color colorRaquetaJugador2 = Color.ORANGE;
+        
+        graficoDeLaCancha.setColor(colorBolita);
+        graficoDeLaCancha.fill(bolita);
+        graficoDeLaCancha.setColor(colorRaquetaJugador1);
+        graficoDeLaCancha.fill(raquetaJugador1);
         graficoDeLaCancha.setColor(Color.ORANGE);
-        graficoDeLaCancha.fill(new Rectangle2D.Double(this.coordenadaXJudador2, this.coordenadaYJugador2, 15, 60));
-        return;
+        graficoDeLaCancha.fill(raquetaJugador2);
     }
 
     @Override
@@ -80,14 +81,13 @@ public void paint(Graphics cancha) {
                         break;
         }
         super.repaint();
-        return;
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {return;}
+    public void keyReleased(KeyEvent e) {}
 
     @Override
-    public void keyTyped(KeyEvent e) {return;}
+    public void keyTyped(KeyEvent e) {}
 
     @Override
     public void run() {
@@ -160,7 +160,9 @@ public void paint(Graphics cancha) {
             }
             try {
                     Thread.sleep((int)Math.round(30));
-            } catch (Exception e) {}
+            } catch (InterruptedException exception) {
+                JOptionPane.showMessageDialog(null, "Error en la Ejecucion del Grafico", "Error de interrupcion", JOptionPane.ERROR_MESSAGE);
+            }
 
             double valorLimite1 = this.coordenadaYJugador1-15;
             while (valorLimite1 <= this.coordenadaYJugador1+60) {

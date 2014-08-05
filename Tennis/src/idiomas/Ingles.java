@@ -4,11 +4,11 @@ package idiomas;
  *
  * @author jorge
  */
-public class Espanol extends IdiomasAbstract {
-    private String[] palabraIdioma;
+public class Ingles extends IdiomasAbstract {
+   private String[] palabraIdioma;
     private String idioma;
 
-    public Espanol(String idioma) {
+    public Ingles(String idioma) {
         setIdioma(idioma);
         cargarIdioma();
     }
@@ -70,5 +70,5 @@ public class Espanol extends IdiomasAbstract {
     @Override
     public String Wins() {
         return getPalabraIdioma(6);
-    }
+    } 
 }
