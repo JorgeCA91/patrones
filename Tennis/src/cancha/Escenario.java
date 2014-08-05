@@ -22,21 +22,24 @@ class Controlador extends JPanel implements Runnable, KeyListener {
     private double coordenadaYJugador1;
     private double coordenadaXJudador2;
     private double coordenadaYJugador2;
-    private double velocidadJugadores = 6.0;
-    private double velocidadBolita = 5.0;
-    private int direccionJugador1 = 1;
-    private int direccionJugador2 = 1;
-    private int direccionXBolita = 1;
-    private int direccionYBolita = 1;
-    private int puntajeJugador1 = 0;
-    private int puntajeJugador2 = 0;
+    private final double velocidadJugadores = 6.0;
+    private final double velocidadBolita = 5.0;
+    private final int IZQUIERDA = 0;
+    private final int DERECHA = 1;
+    private final int ABAJO = 0;
+    private final int ARRIBA = 1;
+    private int direccionJugador1 = this.ARRIBA;
+    private int direccionJugador2 = this.ABAJO;
+    private int direccionXBolita = this.ARRIBA;
+    private int direccionYBolita = this.ARRIBA;
+    private int puntajeJugador1 = this.ABAJO;
+    private int puntajeJugador2 = this.ABAJO;
     private int vidasJugador1 = 3;
     private int vidasJugador2 = 3;
-
+    
     protected Controlador() {
         super();
-        this.coordenadaXBolita = 30;
-        this.coordenadaYBolita = 0;
+        reseteaPosicionBolita();
         this.coordenadaXJugador1 = 565;
         this.coordenadaYJugador1 = 180;
         this.coordenadaXJudador2 = 10;
@@ -68,16 +71,16 @@ class Controlador extends JPanel implements Runnable, KeyListener {
 
         switch (teclaPresionada) {
                 case KeyEvent.VK_DOWN:
-                        this.direccionJugador1 = 0;
+                        this.direccionJugador1 = this.ABAJO;
                         break;
                 case KeyEvent.VK_UP:
-                        this.direccionJugador1 = 1;
+                        this.direccionJugador1 = this.ARRIBA;
                         break;
                 case KeyEvent.VK_Z:
-                        this.direccionJugador2 = 0;
+                        this.direccionJugador2 = this.ABAJO;
                         break;
                 case KeyEvent.VK_A:
-                        this.direccionJugador2 = 1;
+                        this.direccionJugador2 = this.ARRIBA;
                         break;
         }
         super.repaint();
@@ -88,35 +91,79 @@ class Controlador extends JPanel implements Runnable, KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {}
-
+    
+    public void reseteaPosicionBolita() {
+        this.coordenadaXBolita = 300;
+        this.coordenadaYBolita = 200;
+    }
+    
+    public boolean direccionJugador1HaciaAbajo() {
+        return direccionJugador1 == this.ABAJO ;
+    }
+    public boolean direccionJugador1HaciaArriba() {
+        return direccionJugador1 == this.ARRIBA ;
+    }
+    
+    public boolean direccionJugador2HaciaAbajo() {
+        return direccionJugador2 == this.ABAJO;
+    }
+    
+    public boolean direccionJugador2HaciaArriba() {
+        return direccionJugador2 == this.ARRIBA;
+    }
+    
+    public void moverJugador1HaciaAbajo() {
+        this.coordenadaYJugador1 += this.velocidadJugadores;
+        if (this.coordenadaYJugador1 > 315) {
+            this.coordenadaYJugador1 = 315;
+        }
+    }
+    
+    public void moverJugador1HaciaArriba() {
+        this.coordenadaYJugador1 -= this.velocidadJugadores;
+        if (this.coordenadaYJugador1 < 0) {
+            this.coordenadaYJugador1 = 0;
+        }
+    }
+    
+    public void moverJugador2HaciaAbajo() {
+        this.coordenadaYJugador2 += this.velocidadJugadores;
+        if (this.coordenadaYJugador2 > 315) {
+            this.coordenadaYJugador2 = 315;
+        }
+    }
+    
+    public void moverJugador2HaciaArriba() {
+        this.coordenadaYJugador2 -= this.velocidadJugadores;
+        if (this.coordenadaYJugador2 < 0) {
+            this.coordenadaYJugador2 = 0;
+        }
+    }
+    
+    public boolean direccionBolitaEnXHaciaIzquierda() {
+        return direccionXBolita == this.IZQUIERDA;
+    }
+    
+    public boolean direccionBolitaEnXHaciaDerecha() {
+        return direccionXBolita == this.DERECHA;
+    }
+    
+    public boolean direccionBolitaEnYHaciaAbajo() {
+        return direccionYBolita == this.ABAJO;
+    }
+    
+    public boolean direccionBolitaEnYHaciaArriba() {
+        return direccionYBolita == this.ARRIBA;
+    }
+    
     @Override
     public void run() {
         while (true) {
-            if (direccionJugador1 == 0) {
-                    this.coordenadaYJugador1 += this.velocidadJugadores;
-                    if (this.coordenadaYJugador1 > 315) {
-                            this.coordenadaYJugador1 = 315;
-                    }
-            }
-            if (direccionJugador1 == 1) {
-                    this.coordenadaYJugador1 -= this.velocidadJugadores;
-                    if (this.coordenadaYJugador1 < 0) {
-                            this.coordenadaYJugador1 = 0;
-                    }
-            }
-            if (direccionJugador2 == 0) {
-                    this.coordenadaYJugador2 += this.velocidadJugadores;
-                    if (this.coordenadaYJugador2 > 315) {
-                            this.coordenadaYJugador2 = 315;
-                    }
-            }
-            if (direccionJugador2 == 1) {
-                    this.coordenadaYJugador2 -= this.velocidadJugadores;
-                    if (this.coordenadaYJugador2 < 0) {
-                            this.coordenadaYJugador2 = 0;
-                    }
-            }
-            if (direccionXBolita == 0) {
+            if (direccionJugador1HaciaAbajo()) { moverJugador1HaciaAbajo(); }
+            if (direccionJugador1HaciaArriba()) { moverJugador1HaciaArriba(); }
+            if (direccionJugador2HaciaAbajo()) { moverJugador2HaciaAbajo(); }
+            if (direccionJugador2HaciaArriba()) { moverJugador2HaciaArriba(); }
+            if (direccionBolitaEnXHaciaIzquierda()) {
                     this.coordenadaXBolita -= this.velocidadBolita;
                     if (this.coordenadaXBolita < 0) {
                         //Jugador 2 aumenta un punto
@@ -125,9 +172,10 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                            System.out.print("Naranja > Vidas restantes: ");
                             this.vidasJugador2 -= 1;
                             System.out.println(this.vidasJugador2);
+                            reseteaPosicionBolita();
                     }
             }
-            if (direccionXBolita == 1) {
+            if (direccionBolitaEnXHaciaDerecha()) {
                     this.coordenadaXBolita += this.velocidadBolita;
                     if (this.coordenadaXBolita > 570) {
                         //Jugador 1 aumenta un punto
@@ -136,20 +184,22 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                             System.out.print("Azul > Vidas restantes: ");
                             this.vidasJugador1 -= 1;
                             System.out.println(this.vidasJugador1);
+                            reseteaPosicionBolita();
                     }
             }
-            if (direccionYBolita == 0) {
+            if (direccionBolitaEnYHaciaAbajo()) {
                     this.coordenadaYBolita -= this.velocidadBolita;
                     if (this.coordenadaYBolita < 0) {
                             this.direccionYBolita = 1;
                     }
             }
-            if (direccionYBolita == 1) {
+            if (direccionBolitaEnYHaciaArriba()) {
                     this.coordenadaYBolita += this.velocidadBolita;
                     if (this.coordenadaYBolita > 350) {
                             this.direccionYBolita = 0;
                     }
             }
+            //Mostraremos el score
             if(this.vidasJugador1 < 0) {
                     System.out.println("Ganador del juego >> Naranja");
                     System.exit(1);
@@ -178,6 +228,7 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                         this.direccionXBolita = 0;
                         this.direccionYBolita = 0;
                     }
+                    reseteaPosicionBolita();
                 }
                 valorLimite1 += 1.0;
             }
@@ -195,6 +246,7 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                         this.direccionXBolita = 1;
                         this.direccionYBolita = 0;
                     }
+                    reseteaPosicionBolita();
                 }
                 valorLimite2 += 1.0;
             }
