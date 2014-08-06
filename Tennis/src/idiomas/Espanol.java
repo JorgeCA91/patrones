@@ -71,4 +71,9 @@ public class Espanol extends IdiomasAbstract {
     public String Wins() {
         return getPalabraIdioma(6);
     }
+    
+    @Override
+    public String Deuce() {
+        return getPalabraIdioma(6);
+    }
 }

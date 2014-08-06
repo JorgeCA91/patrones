@@ -254,7 +254,7 @@ class Controlador extends JPanel implements Runnable, KeyListener {
         }
     }
 }
-
+//mover esta onda que esta de prueba
 public class Escenario extends JFrame {
     public static void main(String[] args) {
         JFrame aux = new JFrame();

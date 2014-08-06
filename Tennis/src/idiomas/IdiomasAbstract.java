@@ -15,6 +15,20 @@ public abstract class IdiomasAbstract  implements IdiomaInterface {
         return palabras;
     }
     
+    @Override
+    public String getNumero(int puntaje) {
+        switch (puntaje) {
+            case 15:
+                return Fifteen();
+            case 30:
+                return Thirty();
+            case 40:
+                return Forty();
+            default:
+                return Love();
+        }
+    }
+    
     public BufferedReader cargaArchivoDeIdioma(String nombreDelArchivo) {
         BufferedReader buffer = null;
         try {

@@ -13,7 +13,7 @@ package tennis;
 public class Player {
     
     public String nombre;
-    public int point;
+    public int point = 0;
     
     public String getNombre() {
         return nombre;
@@ -28,7 +28,10 @@ public class Player {
     }
 
     public void setPoint(int point) {
-        this.point = point;
+        this.point = incrementaPuntaje();
     }
     
+    private int incrementaPuntaje() {
+        return (getPoint() < 30) ? getPoint() + 15 : getPoint() + 10;
+    }
 }
