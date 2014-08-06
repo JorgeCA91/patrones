@@ -228,7 +228,6 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                         this.direccionXBolita = 0;
                         this.direccionYBolita = 0;
                     }
-                    reseteaPosicionBolita();
                 }
                 valorLimite1 += 1.0;
             }
@@ -246,7 +245,6 @@ class Controlador extends JPanel implements Runnable, KeyListener {
                         this.direccionXBolita = 1;
                         this.direccionYBolita = 0;
                     }
-                    reseteaPosicionBolita();
                 }
                 valorLimite2 += 1.0;
             }
