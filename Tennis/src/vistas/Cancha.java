@@ -15,7 +15,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
-class Controlador extends JPanel implements Runnable, KeyListener {
+public class Cancha extends JPanel implements Runnable, KeyListener {
     private double coordenadaXBolita;
     private double coordenadaYBolita;
     private double coordenadaXJugador1;
@@ -36,9 +36,11 @@ class Controlador extends JPanel implements Runnable, KeyListener {
     private int puntajeJugador2 = this.ABAJO;
     private int vidasJugador1 = 3;
     private int vidasJugador2 = 3;
+    private boolean jugar;
     
-    protected Controlador() {
+    public Cancha() {
         super();
+        setJugar(true);
         reseteaPosicionBolita();
         this.coordenadaXJugador1 = 565;
         this.coordenadaYJugador1 = 180;
@@ -156,9 +158,18 @@ class Controlador extends JPanel implements Runnable, KeyListener {
         return direccionYBolita == this.ARRIBA;
     }
     
+    public void setJugar(boolean estado) {
+        this.jugar = estado;
+    }
+    
+    public boolean getJugar() {
+        return this.jugar;
+    }
+    
     @Override
     public void run() {
-        while (true) {
+        
+        while (getJugar()) {
             if (direccionJugador1HaciaAbajo()) { moverJugador1HaciaAbajo(); }
             if (direccionJugador1HaciaArriba()) { moverJugador1HaciaArriba(); }
             if (direccionJugador2HaciaAbajo()) { moverJugador2HaciaAbajo(); }
@@ -202,11 +213,13 @@ class Controlador extends JPanel implements Runnable, KeyListener {
             //Mostraremos el score
             if(this.vidasJugador1 < 0) {
                     System.out.println("Ganador del juego >> Naranja");
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "Ganador", "Gano Naranja", JOptionPane.INFORMATION_MESSAGE);
+                    setJugar(false);
             }
             if(this.vidasJugador2 < 0) {
                     System.out.println("Ganador del juego >> Azul");
-                    System.exit(1);
+                    JOptionPane.showMessageDialog(null, "Ganador", "Gano Azul", JOptionPane.INFORMATION_MESSAGE);
+                    setJugar(false);
             }
             try {
                     Thread.sleep((int)Math.round(30));
@@ -252,7 +265,8 @@ class Controlador extends JPanel implements Runnable, KeyListener {
         }
     }
 }
-//mover esta onda que esta de prueba
+
+/*mover esta onda que esta de prueba
 public class Escenario extends JFrame {
     public static void main(String[] args) {
         JFrame aux = new JFrame();
@@ -260,7 +274,7 @@ public class Escenario extends JFrame {
         aux.setLocation(200, 100);
         aux.setTitle("Ping-Pong");
         aux.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Controlador c = new Controlador();
+        Cancha c = new Cancha();
         aux.add(c);
         aux.addKeyListener(c);
         c.setBackground(Color.WHITE);
@@ -269,4 +283,5 @@ public class Escenario extends JFrame {
         aux.setVisible(true);
         aux.setResizable(false);
     }
-}
+    
+}*/
