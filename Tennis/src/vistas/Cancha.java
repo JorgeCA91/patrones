@@ -40,7 +40,7 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
     
     public Cancha() {
         super();
-        setJugar(true);
+        //setJugar(true);
         reseteaPosicionBolita();
         this.coordenadaXJugador1 = 565;
         this.coordenadaYJugador1 = 180;
@@ -67,6 +67,8 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
         graficoDeLaCancha.fill(raquetaJugador2);
     }
 
+    
+    
     @Override
     public void keyPressed(KeyEvent evento) {
         int teclaPresionada = evento.getKeyCode();

@@ -186,47 +186,29 @@ public class Tabl extends javax.swing.JFrame {
 
     int contador = 0;
     int contador2 = 0;
-/*public int uno (int contador){
-    return contador;   
-}
-    }*/
-////////////////////////////////////////////////
-public String conteo (){
+    public String conteo (){
     palabras = idiomas.estructuraIdioma(tablaNormal.getIdioma()+".txt");
-    /*if(jRadioButton1.isSelected()) {
-        String i = jRadioButton1.getText();
-        palabras = idiomas.estructuraIdioma(i+".txt");   
-    }
-    if(jRadioButton2.isSelected()) {
-        String i = jRadioButton2.getText();
-        palabras = idiomas.estructuraIdioma(i+".txt");   
-    }
-    if(jRadioButton3.isSelected()) {
-        String i = jRadioButton3.getText();
-        palabras = idiomas.estructuraIdioma(i+".txt");   
-    }*/
     System.out.println();
     
     String s = "";
     String p1N="jugador 1";
     String p2N="jugador 2";
-if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
-            String[] p = new String[]{palabras[0], palabras[1], palabras[2], palabras[3]}; 
-            s = p[contador];
-            return (contador == contador2) ? s + " - "+palabras[4] : s + " - " + p[contador2];
-        } else {
-            if (contador == contador2)
-                return ""+palabras[4];
+    if (contador < 4 && contador2 < 4 && !(contador + contador2 == 6)) {
+        String[] p = new String[]{palabras[0], palabras[1], palabras[2], palabras[3]}; 
+        s = p[contador];
+        return (contador == contador2) ? s + " - "+palabras[4] : s + " - " + p[contador2];
+    } else {
+        if (contador == contador2)
+            return ""+palabras[4];
             s = contador > contador2 ? p1N : p2N;
-            //Lo nuevo
-            if ((contador-contador2)*(contador-contador2) == 1) {
-                return palabras[5]+ " " + s;
-            } else {
-                ganador = true;
-                return palabras[6] + " " + s;
+        //Lo nuevo
+        if ((contador-contador2)*(contador-contador2) == 1) {
+            return palabras[5]+ " " + s;
+        } else {
+            ganador = true;
+            return palabras[6] + " " + s;
             }
         }
-            //return ((contador-contador2)*(contador-contador2) == 1) ?  : "gana  " + s;
     }
 
     public String conteo2 (){
