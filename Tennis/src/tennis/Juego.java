@@ -37,9 +37,9 @@ public class Juego {
         this.score = score;
     }
     
-    public Juego(Player player1, Player player2) {
+    public void setJugadores(Player player1, Player player2) {
         setPlayer1(player1);
-        setPlayer1(player2);
+        setPlayer2(player2);
     }
     
     public void point(int numeroJugador) {

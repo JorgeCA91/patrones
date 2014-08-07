@@ -1,18 +1,20 @@
 package idiomas;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import javax.swing.JOptionPane;
+import utils.*;
 
 public abstract class IdiomasAbstract  implements IdiomaInterface {
-    
+    private final String TXT = ".txt"; 
     public String[] estructuraIdioma(String nombreDelIdioma) {
-        BufferedReader bufferIdioma = cargaArchivoDeIdioma(nombreDelIdioma);
-        String lineaLeida = leerIdioma(bufferIdioma);
+        BufferedReader bufferIdioma;
+        bufferIdioma = Archivos.cargaArchivo(nombreCompleto(nombreDelIdioma));
+        String lineaLeida = Archivos.leerArchivo(bufferIdioma);
         String[] palabras = lineaLeida.split(",");
         return palabras;
+    }
+    
+    public String nombreCompleto(String nombreDelIdioma) {
+        return nombreDelIdioma + this.TXT;
     }
     
     @Override
@@ -29,32 +31,4 @@ public abstract class IdiomasAbstract  implements IdiomaInterface {
         }
     }
     
-    public BufferedReader cargaArchivoDeIdioma(String nombreDelArchivo) {
-        BufferedReader buffer = null;
-        try {
-            buffer = new BufferedReader(new FileReader(nombreDelArchivo));
-        } catch (FileNotFoundException exception) {
-            JOptionPane.showMessageDialog(null, "No se encontro el Archivo deseado", "Error de Carga", JOptionPane.ERROR_MESSAGE);
-            System.out.println(exception.getMessage());
-        }
-        return buffer;
-    }
-    
-    public String leerIdioma(BufferedReader buffer) {
-        String linea = "";
-        String data;
-        try {
-            linea = buffer.readLine();
-        } catch (IOException exception) {
-            if(linea.isEmpty()) {
-                return null;
-            }
-        }
-        if( linea!=null ) {
-            data = linea;
-            return data;
-        } else {
-            return null;
-        }
-    }
 }
