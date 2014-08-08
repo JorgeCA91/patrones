@@ -31,6 +31,8 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
     private final int DERECHA = 1;
     private final int ABAJO = 0;
     private final int ARRIBA = 1;
+    private boolean horizontal = false;
+    private boolean vertical = true;
     private int direccionJugador1 = this.ARRIBA;
     private int direccionJugador2 = this.ABAJO;
     private int direccionXBolita = this.ARRIBA;
@@ -79,27 +81,43 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
         int teclaPresionada = evento.getKeyCode();
         switch (teclaPresionada) {
             case KeyEvent.VK_DOWN:
+                this.vertical = true;
+                this.horizontal=false;
                 this.direccionJugador1 = this.ABAJO;
                 break;
             case KeyEvent.VK_UP:
+                this.vertical = true;
+                this.horizontal=false;
                 this.direccionJugador1 = this.ARRIBA;
                 break;
             case KeyEvent.VK_LEFT:
+                this.vertical = false;
+                this.horizontal=true;
                 this.direccionJugador1 = this.IZQUIERDA;
                 break;
             case KeyEvent.VK_RIGHT:
+                this.vertical = false;
+                this.horizontal=true;
                 this.direccionJugador1 = this.DERECHA;
                 break;
-            case KeyEvent.VK_S:
+            case KeyEvent.VK_X:
+                this.vertical = true;
+                this.horizontal=false;
                 this.direccionJugador2 = this.ABAJO;
                 break;
-            case KeyEvent.VK_X:
+            case KeyEvent.VK_S:
+                this.vertical = true;
+                this.horizontal=false;
                 this.direccionJugador2 = this.ARRIBA;
                 break;
             case KeyEvent.VK_Z:
+                this.vertical = false;
+                this.horizontal=true;
                 this.direccionJugador2 = this.IZQUIERDA;
                 break;
             case KeyEvent.VK_C:
+                this.vertical = false;
+                this.horizontal=true;
                 this.direccionJugador2 = this.DERECHA;
                 break;    
         }
@@ -163,8 +181,8 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
     
     public void moverJugador1HaciaDerecha() {
         this.coordenadaXJugador1 += this.velocidadJugadores;
-        if (this.coordenadaXJugador1 > 250) {
-            this.coordenadaXJugador1 = 250;
+        if (this.coordenadaXJugador1 > 150) {
+            this.coordenadaXJugador1 = 150;
         }
     }
     
@@ -198,8 +216,8 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
     
     public void moverJugador2HaciaIzquierda() {
         this.coordenadaXJudador2 -= this.velocidadJugadores;
-        if (this.coordenadaXJudador2 < 280) {
-            this.coordenadaXJudador2 = 280;
+        if (this.coordenadaXJudador2 < 300) {
+            this.coordenadaXJudador2 = 300;
         }
     }
     
@@ -239,14 +257,18 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
     public void run() {
         
         while (getJugar()) {
-            if (direccionJugador1HaciaAbajo()) { moverJugador1HaciaAbajo(); }
-            if (direccionJugador1HaciaArriba()) { moverJugador1HaciaArriba(); }
-            if (direccionJugador1HaciaDerecha()) { moverJugador1HaciaDerecha(); }
-            if (direccionJugador1HaciaIzquierda()) { moverJugador1HaciaIzquierda(); }
-            if (direccionJugador2HaciaAbajo()) { moverJugador2HaciaAbajo(); }
-            if (direccionJugador2HaciaArriba()) { moverJugador2HaciaArriba(); }
-            if (direccionJugador2HaciaDerecha()) { moverJugador2HaciaDerecha(); }
-            if (direccionJugador2HaciaIzquierda()) { moverJugador2HaciaIzquierda(); }
+            if(vertical) {
+                if (direccionJugador1HaciaAbajo()) { moverJugador1HaciaAbajo(); }
+                if (direccionJugador1HaciaArriba()) { moverJugador1HaciaArriba(); }
+                if (direccionJugador2HaciaAbajo()) { moverJugador2HaciaAbajo(); }
+                if (direccionJugador2HaciaArriba()) { moverJugador2HaciaArriba(); }
+            }
+            if(horizontal) {
+                if (direccionJugador1HaciaDerecha()) { moverJugador1HaciaDerecha(); }
+                if (direccionJugador1HaciaIzquierda()) { moverJugador1HaciaIzquierda(); }
+                if (direccionJugador2HaciaDerecha()) { moverJugador2HaciaDerecha(); }
+                if (direccionJugador2HaciaIzquierda()) { moverJugador2HaciaIzquierda(); }
+            }
             if (direccionBolitaEnXHaciaIzquierda()) {
                     this.coordenadaXBolita -= this.velocidadBolita;
                     if (anotaJugador2()) {
