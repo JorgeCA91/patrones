@@ -48,7 +48,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     public void inicializaPaneles() {
-        game = new Juego();
+        
         this.setSize(300, 415);
         panelTitulo = new JPanel(null, true);
         panelTitulo.setBounds(0, 0, 300, 70);
@@ -58,16 +58,7 @@ public class Tablero extends javax.swing.JFrame {
         idiomas = new JComboBox(new String[] {"Español","Ingles","Frances"});
         idiomas.setBounds(0, 30, 100, 25);
         idiomas.setEnabled(false);
-        idiomas.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent event) {
-                
-                System.out.println("Idioma: " + idiomas.getSelectedItem().toString());
-                idiomaFinal = new Idioma((String)idiomas.getSelectedItem());
-                System.out.println(idiomaFinal.Advantage());
-                setIdioma(idiomaFinal); 
-           }
-        });
+        
         panelTitulo.add(judadores);
         panelTitulo.add(idiomas);
         panelPrincipal = new JPanel(null, true);
@@ -91,6 +82,17 @@ public class Tablero extends javax.swing.JFrame {
         this.add(panelTitulo);
         this.add(labelMarcador);
         this.add(tablaMarcador);
+        
+        game = new Juego();
+        idiomas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {                
+                System.out.println("Idioma: " + idiomas.getSelectedItem().toString());
+                idiomaFinal = new Idioma((String)idiomas.getSelectedItem());
+                setIdioma(idiomaFinal);
+                labelMarcador.muestraScore(game);
+           }
+        });
     }
     
     public void setIdioma(IdiomaInterface idioma) {
@@ -217,7 +219,7 @@ public class Tablero extends javax.swing.JFrame {
     
     public void inicializaFrameCancha() {
         cancha = new JFrame();
-        panelCancha = new Cancha();
+        panelCancha = new Cancha(this.game);
         panelCancha.setBounds(305, 75, 600, 400);
         panelCancha.setBackground(Color.WHITE);
         hiloEjecucionCancha = new Thread(panelCancha);
@@ -226,6 +228,9 @@ public class Tablero extends javax.swing.JFrame {
         cancha.setBounds(300, 0, 600, 415);
         cancha.setVisible(true);
         this.requestFocus();
+        JuegoObserver observers[] = {panelCancha,labelMarcador, tablaMarcador};
+        game.setObservers(observers);
+        
     }
     
     public void iniciar() {

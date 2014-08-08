@@ -10,12 +10,14 @@ import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import tennis.Juego;
+import tennis.JuegoObserver;
 
 /**
  *
  * @author jorge
  */
-public class TablaMarcador extends javax.swing.JPanel {
+public class TablaMarcador extends javax.swing.JPanel implements JuegoObserver {
 
     /**
      * Creates new form TablaMarcador
@@ -68,4 +70,19 @@ public class TablaMarcador extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notificaPuntoAnotado(int numeroJugador) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void muestraScore(Juego game) {
+        
+    }
+
+    @Override
+    public void notificaGanador(String ganador) {
+        
+    }
 }

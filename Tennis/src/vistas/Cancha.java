@@ -5,17 +5,20 @@ package vistas;
  * @author jorge
  */
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.geom.*;
-import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.geom.*;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import tennis.Juego;
+import tennis.JuegoObserver;
+import tennis.Player;
 
-public class Cancha extends JPanel implements Runnable, KeyListener {
+public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserver {
     private double coordenadaXBolita;
     private double coordenadaYBolita;
     private double coordenadaXJugador1;
@@ -36,9 +39,10 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
     private int puntajeJugador2 = this.ABAJO;
     private int vidasJugador1 = 3;
     private int vidasJugador2 = 3;
+    private Juego game;
     private boolean jugar;
     
-    public Cancha() {
+    public Cancha(Juego game) {
         super();
         //setJugar(true);
         reseteaPosicionBolita();
@@ -46,6 +50,7 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
         this.coordenadaYJugador1 = 180;
         this.coordenadaXJudador2 = 10;
         this.coordenadaYJugador2 = 180;
+        this.game = game;
     }
 
     @Override
@@ -168,6 +173,14 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
         return this.jugar;
     }
     
+    public boolean anotaJugador2() {
+        return this.coordenadaXBolita < 0;
+    }
+    
+    public boolean anotaJugador1() {
+        return this.coordenadaXBolita > 570;
+    }
+    
     @Override
     public void run() {
         
@@ -178,25 +191,19 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
             if (direccionJugador2HaciaArriba()) { moverJugador2HaciaArriba(); }
             if (direccionBolitaEnXHaciaIzquierda()) {
                     this.coordenadaXBolita -= this.velocidadBolita;
-                    if (this.coordenadaXBolita < 0) {
-                        //Jugador 2 aumenta un punto
+                    if (anotaJugador2()) {
+                            notificaPuntoAnotado(2);
                             this.direccionXBolita = 1;
                             this.coordenadaXBolita = 100; 
-                           System.out.print("Naranja > Vidas restantes: ");
-                            this.vidasJugador2 -= 1;
-                            System.out.println(this.vidasJugador2);
                             reseteaPosicionBolita();
                     }
             }
             if (direccionBolitaEnXHaciaDerecha()) {
                     this.coordenadaXBolita += this.velocidadBolita;
-                    if (this.coordenadaXBolita > 570) {
-                        //Jugador 1 aumenta un punto
+                    if (anotaJugador1()) {
+                            notificaPuntoAnotado(1);
                             this.direccionXBolita = 0;
                             this.coordenadaXBolita = 360;
-                            System.out.print("Azul > Vidas restantes: ");
-                            this.vidasJugador1 -= 1;
-                            System.out.println(this.vidasJugador1);
                             reseteaPosicionBolita();
                     }
             }
@@ -212,29 +219,16 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
                             this.direccionYBolita = 0;
                     }
             }
-            //Mostraremos el score
-            if(this.vidasJugador1 < 0) {
-                    System.out.println("Ganador del juego >> Naranja");
-                    JOptionPane.showMessageDialog(null, "Ganador", "Gano Naranja", JOptionPane.INFORMATION_MESSAGE);
-                    setJugar(false);
-            }
-            if(this.vidasJugador2 < 0) {
-                    System.out.println("Ganador del juego >> Azul");
-                    JOptionPane.showMessageDialog(null, "Ganador", "Gano Azul", JOptionPane.INFORMATION_MESSAGE);
-                    setJugar(false);
-            }
+            
             try {
-                    Thread.sleep((int)Math.round(30));
+                Thread.sleep((int)Math.round(30));
             } catch (InterruptedException exception) {
                 JOptionPane.showMessageDialog(null, "Error en la Ejecucion del Grafico", "Error de interrupcion", JOptionPane.ERROR_MESSAGE);
             }
-
+            
             double valorLimite1 = this.coordenadaYJugador1-15;
             while (valorLimite1 <= this.coordenadaYJugador1+60) {
                 if (this.coordenadaXJugador1 == this.coordenadaXBolita+20 && valorLimite1 == this.coordenadaYBolita) {
-                    System.out.print("Azul > Puntos: ");
-                    this.puntajeJugador1 += 1;
-                    System.out.println(this.puntajeJugador1);
                     if (direccionJugador1 == 0) {
                         this.direccionXBolita = 0;
                         this.direccionYBolita = 1;
@@ -249,9 +243,6 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
             double valorLimite2 = this.coordenadaYJugador2-15;
             while (valorLimite2 <= this.coordenadaYJugador2+60) {
                 if (this.coordenadaXJudador2+15 == this.coordenadaXBolita && valorLimite2 == this.coordenadaYBolita) {
-                    System.out.print("Naranja > Puntos: ");
-                    this.puntajeJugador2 += 1;
-                    System.out.println(this.puntajeJugador2);
                     if (direccionJugador2 == 0) {
                         this.direccionXBolita = 1;
                         this.direccionYBolita = 1;
@@ -266,24 +257,30 @@ public class Cancha extends JPanel implements Runnable, KeyListener {
             super.repaint();
         }
     }
-}
 
-/*mover esta onda que esta de prueba
-public class Escenario extends JFrame {
-    public static void main(String[] args) {
-        JFrame aux = new JFrame();
-        aux.setSize(600, 400);
-        aux.setLocation(200, 100);
-        aux.setTitle("Ping-Pong");
-        aux.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Cancha c = new Cancha();
-        aux.add(c);
-        aux.addKeyListener(c);
-        c.setBackground(Color.WHITE);
-        Thread t = new Thread(c);
-        t.start();
-        aux.setVisible(true);
-        aux.setResizable(false);
+    @Override
+    public void notificaPuntoAnotado(int numeroJugador) {
+        switch (numeroJugador) {
+            case 1:
+                this.game.getPlayer1().setPoint();
+                break;
+            case 2:
+                this.game.getPlayer2().setPoint();
+                break;
+        }
+        JuegoObserver[] observers = game.observers;
+        System.out.println(game.marcador());
+        for (JuegoObserver observer : observers) {
+            observer.muestraScore(this.game);
+        }
     }
-    
-}*/
+
+    @Override
+    public void notificaGanador(String ganador) {
+        setJugar(false);
+        JOptionPane.showMessageDialog(null, "Gano "+ganador, "Ganador", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    @Override
+    public void muestraScore(Juego game) {}
+}

@@ -27,7 +27,7 @@ public class Player {
         return point;
     }
 
-    public void setPoint(int point) {
+    public void setPoint() {
         this.point = incrementaPuntaje();
     }
     

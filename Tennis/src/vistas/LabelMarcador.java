@@ -6,11 +6,14 @@
 
 package vistas;
 
+import tennis.Juego;
+import tennis.JuegoObserver;
+
 /**
  *
  * @author jorge
  */
-public class LabelMarcador extends javax.swing.JPanel {
+public class LabelMarcador extends javax.swing.JPanel implements JuegoObserver{
 
     /**
      * Creates new form LabelMarcador
@@ -50,4 +53,19 @@ public class LabelMarcador extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void notificaPuntoAnotado(int numeroJugador) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void muestraScore(Juego game) {
+        this.jLabel1.setText(game.marcador());
+    }
+
+    @Override
+    public void notificaGanador(String ganador) {
+        this.jLabel1.setText("Gano ... " + ganador);
+    }
 }

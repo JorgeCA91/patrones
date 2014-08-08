@@ -1,18 +1,29 @@
 package tennis;
 
 import idiomas.IdiomaInterface;
+import vistas.Cancha;
 
 /**
  *
  * @author jorge
  */
 public class Juego {
-    
+    public JuegoObserver[] observers;
     private Player player1;
     private Player player2;
     private String score;
     private IdiomaInterface idioma;
-
+    
+    public void setObservers(JuegoObserver[] observers) {
+        this.observers = observers;
+    }
+    
+    public void notificarGanador() {
+        for (JuegoObserver observer : this.observers) {
+            observer.notificaGanador(jugadorConVentaja());
+        }
+    }
+    
     public Player getPlayer1() {
         return player1;
     }
@@ -45,10 +56,10 @@ public class Juego {
     public void point(int numeroJugador) {
         switch(numeroJugador) {
             case 1:
-                getPlayer1().setPoint(1);
+                getPlayer1().setPoint();
                 break;
             case 2:
-                getPlayer2().setPoint(1);
+                getPlayer2().setPoint();
                 break;            
         }
     }
@@ -65,6 +76,7 @@ public class Juego {
         if (empatado()) {
             return marcadorEmpatado();
         } else if (terminado()) {
+            notificarGanador();
             return marcadorGanador();
         } else if (ventaja()) {
             return marcadorVentaja();
