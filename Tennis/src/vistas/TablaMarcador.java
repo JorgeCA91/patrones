@@ -8,6 +8,8 @@ package vistas;
 
 import java.awt.event.KeyListener;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import tennis.Juego;
@@ -27,8 +29,12 @@ public class TablaMarcador extends javax.swing.JPanel implements JuegoObserver {
         jTable1.getModel().removeTableModelListener(jTable1);
     }
     
-    public void setModel(Object[][] datos, Object[] titulos) {
-        jTable1.setModel(new DefaultTableModel(datos, titulos));
+    public void setModel(AbstractTableModel model) {
+        jTable1.setModel(model);
+    }
+    
+    public JTable getTable() {
+        return this.jTable1;
     }
     
     /**

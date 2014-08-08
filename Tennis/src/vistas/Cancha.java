@@ -77,20 +77,31 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
     @Override
     public void keyPressed(KeyEvent evento) {
         int teclaPresionada = evento.getKeyCode();
-
         switch (teclaPresionada) {
-                case KeyEvent.VK_DOWN:
-                        this.direccionJugador1 = this.ABAJO;
-                        break;
-                case KeyEvent.VK_UP:
-                        this.direccionJugador1 = this.ARRIBA;
-                        break;
-                case KeyEvent.VK_Z:
-                        this.direccionJugador2 = this.ABAJO;
-                        break;
-                case KeyEvent.VK_A:
-                        this.direccionJugador2 = this.ARRIBA;
-                        break;
+            case KeyEvent.VK_DOWN:
+                this.direccionJugador1 = this.ABAJO;
+                break;
+            case KeyEvent.VK_UP:
+                this.direccionJugador1 = this.ARRIBA;
+                break;
+            case KeyEvent.VK_LEFT:
+                this.direccionJugador1 = this.IZQUIERDA;
+                break;
+            case KeyEvent.VK_RIGHT:
+                this.direccionJugador1 = this.DERECHA;
+                break;
+            case KeyEvent.VK_S:
+                this.direccionJugador2 = this.ABAJO;
+                break;
+            case KeyEvent.VK_X:
+                this.direccionJugador2 = this.ARRIBA;
+                break;
+            case KeyEvent.VK_Z:
+                this.direccionJugador2 = this.IZQUIERDA;
+                break;
+            case KeyEvent.VK_C:
+                this.direccionJugador2 = this.DERECHA;
+                break;    
         }
         super.repaint();
     }
@@ -113,12 +124,27 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
         return direccionJugador1 == this.ARRIBA ;
     }
     
+    public boolean direccionJugador1HaciaIzquierda() {
+        return direccionJugador1 == this.IZQUIERDA ;
+    }
+    public boolean direccionJugador1HaciaDerecha() {
+        return direccionJugador1 == this.DERECHA;
+    }
+    
     public boolean direccionJugador2HaciaAbajo() {
         return direccionJugador2 == this.ABAJO;
     }
     
     public boolean direccionJugador2HaciaArriba() {
         return direccionJugador2 == this.ARRIBA;
+    }
+    
+    public boolean direccionJugador2HaciaIzquierda() {
+        return direccionJugador2 == this.IZQUIERDA;
+    }
+    
+    public boolean direccionJugador2HaciaDerecha() {
+        return direccionJugador2 == this.DERECHA;
     }
     
     public void moverJugador1HaciaAbajo() {
@@ -135,6 +161,20 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
         }
     }
     
+    public void moverJugador1HaciaDerecha() {
+        this.coordenadaXJugador1 += this.velocidadJugadores;
+        if (this.coordenadaXJugador1 > 250) {
+            this.coordenadaXJugador1 = 250;
+        }
+    }
+    
+    public void moverJugador1HaciaIzquierda() {
+        this.coordenadaXJugador1 -= this.velocidadJugadores;
+        if (this.coordenadaXJugador1 < 5) {
+            this.coordenadaXJugador1 = 5;
+        }
+    }
+    
     public void moverJugador2HaciaAbajo() {
         this.coordenadaYJugador2 += this.velocidadJugadores;
         if (this.coordenadaYJugador2 > 315) {
@@ -146,6 +186,20 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
         this.coordenadaYJugador2 -= this.velocidadJugadores;
         if (this.coordenadaYJugador2 < 0) {
             this.coordenadaYJugador2 = 0;
+        }
+    }
+    
+    public void moverJugador2HaciaDerecha() {
+        this.coordenadaXJudador2 += this.velocidadJugadores;
+        if (this.coordenadaXJudador2 > 550) {
+            this.coordenadaXJudador2 = 550;
+        }
+    }
+    
+    public void moverJugador2HaciaIzquierda() {
+        this.coordenadaXJudador2 -= this.velocidadJugadores;
+        if (this.coordenadaXJudador2 < 280) {
+            this.coordenadaXJudador2 = 280;
         }
     }
     
@@ -187,8 +241,12 @@ public class Cancha extends JPanel implements Runnable, KeyListener, JuegoObserv
         while (getJugar()) {
             if (direccionJugador1HaciaAbajo()) { moverJugador1HaciaAbajo(); }
             if (direccionJugador1HaciaArriba()) { moverJugador1HaciaArriba(); }
+            if (direccionJugador1HaciaDerecha()) { moverJugador1HaciaDerecha(); }
+            if (direccionJugador1HaciaIzquierda()) { moverJugador1HaciaIzquierda(); }
             if (direccionJugador2HaciaAbajo()) { moverJugador2HaciaAbajo(); }
             if (direccionJugador2HaciaArriba()) { moverJugador2HaciaArriba(); }
+            if (direccionJugador2HaciaDerecha()) { moverJugador2HaciaDerecha(); }
+            if (direccionJugador2HaciaIzquierda()) { moverJugador2HaciaIzquierda(); }
             if (direccionBolitaEnXHaciaIzquierda()) {
                     this.coordenadaXBolita -= this.velocidadBolita;
                     if (anotaJugador2()) {

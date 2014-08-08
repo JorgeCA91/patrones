@@ -13,11 +13,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
+import utils.ModelTablaPuntaje;
 import vistas.*;
 
 /**
@@ -29,6 +34,7 @@ public class Tablero extends javax.swing.JFrame {
     public JLabel judadores;
     public LabelMarcador labelMarcador = new LabelMarcador();
     public TablaMarcador tablaMarcador = new TablaMarcador();
+    public ModelTablaPuntaje model = new ModelTablaPuntaje();
     public JComboBox idiomas;
     private boolean pausa = false;
     public JPanel panelPrincipal;
@@ -66,19 +72,35 @@ public class Tablero extends javax.swing.JFrame {
         panelPrincipal.setBackground(Color.CYAN);
         labelMarcador.setBounds(0, 75, 300, 50);
         tablaMarcador.setBounds(0, 134, 300, 350);
+        tablaMarcador.getTable().addMouseListener(new MouseListener() {
+
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                int numRow = tablaMarcador.getTable().getSelectedRow();
+                model.limpiarAPartirDe(numRow);
+                int numRows = model.getRowCount();
+                player1.setPoint((int) model.getValueAt((numRows-1), 0));
+                player2.setPoint((int) model.getValueAt((numRows-1), 1));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent me) {}
+
+            @Override
+            public void mouseReleased(MouseEvent me) {}
+
+            @Override
+            public void mouseEntered(MouseEvent me) {}
+
+            @Override
+            public void mouseExited(MouseEvent me) {}
+        });
         
         
         panelPrincipal.add(panelTitulo);
         panelPrincipal.add(labelMarcador);
         panelPrincipal.add(tablaMarcador);
-        
-        tablaMarcador.setModel(
-            new String [][] {
-                {"Title 1", "Title 2"},
-                {"Title 1", "Title 2"}
-            }, new String [] {
-                "Jugador 1", "Jugador 2"
-            });
+
         this.add(panelTitulo);
         this.add(labelMarcador);
         this.add(tablaMarcador);
@@ -215,6 +237,9 @@ public class Tablero extends javax.swing.JFrame {
         player1.setNombre(JOptionPane.showInputDialog("Nombre del Jugador1", "Nombre"));
         player2 =  new Player();
         player2.setNombre(JOptionPane.showInputDialog("Nombre del Jugador2", "Nombre"));
+        model.setTitles(player1, player2);
+        tablaMarcador. setModel(model);
+        
     }
     
     public void inicializaFrameCancha() {
@@ -228,7 +253,7 @@ public class Tablero extends javax.swing.JFrame {
         cancha.setBounds(300, 0, 600, 415);
         cancha.setVisible(true);
         this.requestFocus();
-        JuegoObserver observers[] = {panelCancha,labelMarcador, tablaMarcador};
+        JuegoObserver observers[] = {panelCancha,labelMarcador, tablaMarcador, model};
         game.setObservers(observers);
         
     }

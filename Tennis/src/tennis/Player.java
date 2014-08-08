@@ -31,6 +31,10 @@ public class Player {
         this.point = incrementaPuntaje();
     }
     
+    public void setPoint(int puntos) {
+        this.point = puntos;
+    }
+    
     private int incrementaPuntaje() {
         return (getPoint() < 30) ? getPoint() + 15 : getPoint() + 10;
     }
